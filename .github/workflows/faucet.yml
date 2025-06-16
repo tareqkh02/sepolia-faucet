@@ -1,0 +1,20 @@
+name: Sepolia Faucet
+
+on:
+  workflow_dispatch:
+    inputs:
+      address:
+        description: 'Target Sepolia wallet address'
+        required: true
+
+jobs:
+  send_eth:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send Sepolia ETH
+        uses: ethereum-actions/fund-account@v1
+        with:
+          address: ${{ github.event.inputs.address }}
+          amount: '100000000000000000' # 0.1 ETH
+          network: sepolia
+          private-key: ${{ secrets.FAUCET_PRIVATE_KEY }}
